@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenScan | AI-Powered Crypto Due Diligence</title>
+    <meta name="description" content="Paste a contract address. Get a due diligence report in 30 seconds. Analyzing tokenomics, holder distribution, and contract risks.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --crimson: #c41e3a;
+            --crimson-dark: #8b0000;
+            --cobalt: #1e3a8a;
+            --gold-paint: #f4d03f;
+            --neon-cyan: #00f5ff;
+            --neon-pink: #ff1493;
+            --neon-orange: #ff8c00;
+            --neon-red: #ff3131;
+            --canvas: #f5f0e8;
+            --night: #0a0a12;
+            --twilight: #1a1a2e;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--canvas);
+            color: var(--night);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-caveat { font-family: 'Caveat', cursive; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+            97% { opacity: 1; }
+        }
+
+        @keyframes brush-sway {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        .neon-glow-pink { text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
+        .neon-glow-cyan { text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+        .neon-glow-orange { text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange), 0 0 20px var(--neon-orange); }
+
+        .animate-flicker { animation: flicker 4s ease-in-out infinite; }
+        .animate-brush { animation: brush-sway 6s ease-in-out infinite; }
+
+        .canvas-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--canvas); }
+        ::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 4px; }
+
+        .tap-target { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+        .transition-standard { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .skeleton { background: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; }
+        @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .risk-bar { height: 8px; border-radius: 4px; overflow: hidden; background: #374151; }
+        .risk-fill { height: 100%; transition: width 1s ease-out; }
+
+        /* PDF Export specific styles */
+        .export-watermark {
+            pointer-events: none;
+            user-select: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 4rem;
+            opacity: 0.05;
+            white-space: nowrap;
+            z-index: 0;
+            color: #fff;
+            font-weight: 900;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "framer-motion": "https://esm.sh/framer-motion@^11.0.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.400.0",
+    "html2canvas": "https://esm.sh/html2canvas@^1.4.1",
+    "jspdf": "https://esm.sh/jspdf@^2.5.1"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
