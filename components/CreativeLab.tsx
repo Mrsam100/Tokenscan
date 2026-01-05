@@ -46,7 +46,16 @@ const CreativeLab: React.FC = () => {
     try {
       const data = await generateTokenReport(address);
       setResult(data);
-      saveManifestation(data);
+
+      // Save to localStorage with quota handling
+      const saveResult = saveManifestation(data);
+      if (!saveResult.success) {
+        setError(saveResult.error || "Failed to save report locally.");
+      } else if (saveResult.error) {
+        // Show warning but don't block the report
+        console.warn(saveResult.error);
+      }
+
       setHistory(getManifestations());
       setAddress('');
     } catch (err: any) {
@@ -137,17 +146,22 @@ const CreativeLab: React.FC = () => {
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && !loading && address.trim() && handleScan()}
                 placeholder="Contract Address (EVM, Solana, etc.)"
-                className="flex-grow bg-[#1a1a2e] border-2 border-[#1e3a8a] rounded-xl px-6 py-4 text-[#f5f0e8] font-playfair text-xl focus:outline-none focus:border-[#00f5ff] transition-standard shadow-inner"
+                aria-label="Token contract address"
+                aria-describedby="address-hint"
+                className="flex-grow bg-[#1a1a2e] border-2 border-[#1e3a8a] rounded-xl px-6 py-4 text-[#f5f0e8] font-playfair text-base md:text-xl focus:outline-none focus:border-[#00f5ff] transition-standard shadow-inner min-h-[48px]"
               />
               <button
                 onClick={handleScan}
                 disabled={loading || !address.trim()}
-                className="md:w-56 font-caveat text-3xl bg-[#00f5ff] text-[#0a0a12] py-4 rounded-xl hover:scale-[1.05] active:scale-[0.95] transition-standard disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(0,245,255,0.4)]"
+                aria-label="Generate token analysis report"
+                className="md:w-56 font-caveat text-2xl md:text-3xl bg-[#00f5ff] text-[#0a0a12] py-4 px-6 rounded-xl hover:scale-[1.05] active:scale-[0.95] transition-standard disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(0,245,255,0.4)] min-h-[48px]"
               >
                 {loading ? 'Analyzing...' : 'Generate Report'}
               </button>
             </div>
+            <p id="address-hint" className="sr-only">Enter a blockchain token contract address to analyze its security and tokenomics</p>
             {loading && (
               <div className="mt-4 flex items-center gap-3 text-[#00f5ff] font-caveat text-2xl animate-pulse">
                 <span className="w-5 h-5 border-2 border-[#00f5ff] border-t-transparent rounded-full animate-spin"></span>

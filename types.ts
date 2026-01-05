@@ -41,15 +41,4 @@ export interface ServiceItem {
   details: string;
 }
 
-// Added WorkPiece interface used in the Gallery component
-export interface WorkPiece {
-  id: number;
-  title: string;
-  category: string;
-  neonWord: string;
-  gradient: string;
-  neonColor: string;
-  description: string;
-}
-
 export type ViewType = 'home' | 'lab' | 'about' | 'contact' | 'terms' | 'privacy' | 'faq';

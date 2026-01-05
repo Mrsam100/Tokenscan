@@ -8,15 +8,15 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onCta }) => {
   return (
-    <div className="relative min-h-[95vh] flex flex-col items-center justify-center bg-[#0a0a12] overflow-hidden px-6 pt-20">
+    <div className="relative min-h-screen flex flex-col items-center bg-[#0a0a12] overflow-hidden px-6 pt-20 pb-32">
       {/* Dynamic Background Blobs */}
       <div className="absolute top-[-10%] left-[10%] w-[500px] h-[600px] bg-[#c41e3a] opacity-20 blur-[120px] rounded-full -rotate-12 animate-pulse"></div>
       <div className="absolute bottom-[10%] left-[20%] w-[400px] h-[500px] bg-[#1e3a8a] opacity-20 blur-[120px] rounded-full rotate-12"></div>
       <div className="absolute top-[20%] right-[-5%] w-[450px] h-[550px] bg-[#f4d03f] opacity-10 blur-[120px] rounded-full"></div>
-      
+
       <div className="absolute inset-0 canvas-texture pointer-events-none"></div>
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto flex-grow flex flex-col justify-center">
+      <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col justify-start pt-12 md:pt-20 pb-8">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#f5f0e8]/60 text-xs font-bold tracking-[0.2em] uppercase mb-8 self-center animate-in fade-in slide-in-from-top-4 duration-1000">
           <MousePointer2 size={14} className="text-[#00f5ff]" /> Powered by Gemini 3 Pro
         </div>
